@@ -43,13 +43,14 @@ class PostController < ApplicationController
       
        if current_user.nil?
        #@mart_4= Post.with_lng_nearest_to(@point)
+          @posts= Post.all
         else
            @sorted_post = Post.with_lat_nearest_to(current_user.lat, current_user.lng)
            #Post.find_by(user_id: self.id).present?
            #@price= Post.lowest(current_user.lat, current_user.lng)
            @price= Post.order("abs(lat - #{current_user.lat})")
            @price2= @price.order("abs(lat - #{current_user.lng})")
-           @price_3= @price2.order("CAST(price as FLOAT) ASC").limit(3)
+           @price_3= @price2.order("CAST(price as FLOAT) ASC")
            
            @cafe= @post_1.order("abs(lat - #{current_user.lat})")
            @cafe_2= @cafe.order("abs(lat - #{current_user.lng})")

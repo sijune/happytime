@@ -76,8 +76,7 @@ a:hover{color:#CF3653;}
            
              <div class="field"><i class="fas fa-map-marker-alt"></i>
               <%= f.label :"주소 " %><br />
-              <%#= f.text_field :address, autofocus: true, autocomplete: "주소", size:25  %>
-              <%= f.text_area :address, id: :address, readonly: "readonly", rows: 1  %>
+              <%= f.text_field :address, autofocus: true, autocomplete: "주소", size:25  %>
             </div>
              <div class="field"><i class="fas fa-check"></i>
                <%= f.label :"가게 유형 " %>
@@ -89,7 +88,7 @@ a:hover{color:#CF3653;}
               <%= f.submit "Sign up", :class => "btn-danger btn" %>
             </div>
             
-            <%= render "devise/shared/links" %>
+            <%#= render "devise/shared/links" %>
             <% end %>
             
 
@@ -264,41 +263,9 @@ a:hover{color:#CF3653;}
         var map_y = document.getElementById('lng'); 
         map_y.innerHTML = latlng.getLng();
         
-        
-        
-        searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
-        if (status === daum.maps.services.Status.OK) {
-            var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
-            detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
-            
-            var content = '<div class="bAddr">' +
-                            '<span class="title">법정동 주소정보</span>' + 
-                            detailAddr + 
-                        '</div>';
-
-            // 마커를 클릭한 위치에 표시합니다 
-            marker.setPosition(mouseEvent.latLng);
-            marker.setMap(map);
-
-            // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
-             var map_z = document.getElementById('address'); 
-             map_z.innerHTML =result[0].road_address.address_name;
-        }   
-    });
-        
-        
-        
      
         
     });
     }
-    
-    
-    searchAddrFromCoords(map.getCenter(), displayCenterInfo);
-    
-    function searchAddrFromCoords(coords, callback) {
-    // 좌표로 행정동 주소 정보를 요청합니다
-    geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);         
-}
 
   </script>

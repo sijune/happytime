@@ -174,16 +174,47 @@ li .item{float: left; position: absolute; margin-left: 5px;}
 	        <div class="tab-content" id="pills-tabContent">
               <div class="tab-pane fade show active" id="pills-a" role="tabpanel" aria-labelledby="pills-a-tab" >
              <div style="text-align:center;"><i class="fas fa-angle-down" ></i></div>   
-                   <!--  글 쓰면 카테고리 넘버에 따라서 사진도 나오고 다 나옵니다. -->	      
-            <ul style="margin:0 15px 0 15px;">
-               <% @posts.each do |post| %>
+                   <!--  글 쓰면 카테고리 넘버에 따라서 사진도 나오고 다 나옵니다. -->
+                   
+            <%if current_user.nil? %>
+            <br>
+               <p style="text-align:center; color:grey;">회원가입 후 현재 주소를 바탕으로 가게들을 확인하세요! </p>
+                <ul style="margin:0 15px 0 15px;">
+                  <% @posts.each do |post| %>
                  <a href='javascript:;' onclick= 'setCenter(<%=post.lat%>, <%= post.lng %>);'><li>
                  <% if post.category== 1 %>
                       <img src="/assets/커피 마커.png" class="item-icon">
                  <% elsif post.category== 2 %>
-                      <img src="/assets/맥주 마커.png" class="item-icon">
-                 <% elsif post.category== 3 %>
                       <img src="/assets/식당 마커.png" class="item-icon">
+                 <% elsif post.category== 3 %>
+                      <img src="/assets/맥주 마커.png" class="item-icon">
+                 <% elsif post.category== 4 %>
+                      <img src="/assets/마트 마커.png" class="item-icon">
+                 <% end %>
+                 </a>
+                 <strong><span class="item"><%=post.username%></span></strong><!-- 가게 이름 -->
+                 
+                 <span class="item-address"><%=post.address%></span> <!-- 가게 주소--> 
+                 <a href="/post/<%= post.id%>" data-remote="true"><img src="/assets/할인 중 이모티콘.png" class="item-discount1"></a>
+                 <strong><span class="discount-message1">할인 중</span></strong><!-- 가게 할인 시간 정하게 되면 -->
+                 <span class="discount-time time_sale_<%= post.id %>"></span><!-- 가게 할인 시간 -->
+
+                  <script>
+                      
+                  </script> 
+                </li>
+               <% end %>
+               </ul>
+            <% else %>
+            <ul style="margin:0 15px 0 15px;">
+               <% @sorted_post.each do |post| %>
+                 <a href='javascript:;' onclick= 'setCenter(<%=post.lat%>, <%= post.lng %>);'><li>
+                 <% if post.category== 1 %>
+                      <img src="/assets/커피 마커.png" class="item-icon">
+                 <% elsif post.category== 2 %>
+                      <img src="/assets/식당 마커.png" class="item-icon">
+                 <% elsif post.category== 3 %>
+                      <img src="/assets/맥주 마커.png" class="item-icon">
                  <% elsif post.category== 4 %>
                       <img src="/assets/마트 마커.png" class="item-icon">
                  <% end %>
@@ -197,6 +228,7 @@ li .item{float: left; position: absolute; margin-left: 5px;}
 
                 </li>
                <% end %>
+               <% end %>
             </ul>
                   
               </div>
@@ -205,7 +237,33 @@ li .item{float: left; position: absolute; margin-left: 5px;}
               <div class="tab-pane fade" id="pills-b" role="tabpanel" aria-labelledby="pills-b-tab">
                
                <% if current_user.nil? %>
-                
+               <br>
+               <p style="text-align:center; color:grey;">회원가입 후 현재 주소를 바탕으로 가게들을 확인하세요! </p>
+                <ul style="margin:0 15px 0 15px;">
+                  <% @posts.each do |post| %>
+                 <a href='javascript:;' onclick= 'setCenter(<%=post.lat%>, <%= post.lng %>);'><li>
+                 <% if post.category== 1 %>
+                      <img src="/assets/커피 마커.png" class="item-icon">
+                 <% elsif post.category== 2 %>
+                      <img src="/assets/식당 마커.png" class="item-icon">
+                 <% elsif post.category== 3 %>
+                      <img src="/assets/맥주 마커.png" class="item-icon">
+                 <% elsif post.category== 4 %>
+                      <img src="/assets/마트 마커.png" class="item-icon">
+                 <% end %>
+                 </a>
+                 <strong><span class="item"><%=post.username%></span></strong> <!-- 가게 이름 -->
+                 <span class="item-address"><%=post.address%></span> <!-- 가게 주소--> 
+                 <a href="/post/<%= post.id%>" data-remote="true"><img src="/assets/할인 중 이모티콘.png" class="item-discount1"></a>
+                 <strong><span class="discount-message1">할인 중</span></strong><!-- 가게 할인 시간 정하게 되면 -->
+                 <span class="discount-time time_sale_<%= post.id %>"></span><!-- 가게 할인 시간 -->
+
+                  <script>
+                      
+                  </script> 
+                </li>
+               <% end %>
+               </ul>
                  <% else %>
                  <ul style="margin:0 15px 0 15px;">
                   <% @price_3.each do |post| %>
@@ -213,9 +271,9 @@ li .item{float: left; position: absolute; margin-left: 5px;}
                  <% if post.category== 1 %>
                       <img src="/assets/커피 마커.png" class="item-icon">
                  <% elsif post.category== 2 %>
-                      <img src="/assets/맥주 마커.png" class="item-icon">
-                 <% elsif post.category== 3 %>
                       <img src="/assets/식당 마커.png" class="item-icon">
+                 <% elsif post.category== 3 %>
+                      <img src="/assets/맥주 마커.png" class="item-icon">
                  <% elsif post.category== 4 %>
                       <img src="/assets/마트 마커.png" class="item-icon">
                  <% end %>
@@ -238,7 +296,33 @@ li .item{float: left; position: absolute; margin-left: 5px;}
               </div>
             
               <div class="tab-pane fade" id="pills-c" role="tabpanel" aria-labelledby="pills-c-tab">
-                <% if current_user.nil? %>
+                <% if current_user.nil? %><br>
+               <p style="text-align:center; color:grey;">회원가입 후 현재 주소를 바탕으로 가게들을 확인하세요! </p>
+                <ul style="margin:0 15px 0 15px;">
+                  <% @posts.each do |post| %>
+                 <a href='javascript:;' onclick= 'setCenter(<%=post.lat%>, <%= post.lng %>);'><li>
+                 <% if post.category== 1 %>
+                      <img src="/assets/커피 마커.png" class="item-icon">
+                 <% elsif post.category== 2 %>
+                      <img src="/assets/식당 마커.png" class="item-icon">
+                 <% elsif post.category== 3 %>
+                      <img src="/assets/맥주 마커.png" class="item-icon">
+                 <% elsif post.category== 4 %>
+                      <img src="/assets/마트 마커.png" class="item-icon">
+                 <% end %>
+                 </a>
+                 <strong><span class="item"><%=post.username%></span></strong> <!-- 가게 이름 -->
+                 <span class="item-address"><%=post.address%></span> <!-- 가게 주소--> 
+                 <a href="/post/<%= post.id%>" data-remote="true"><img src="/assets/할인 중 이모티콘.png" class="item-discount1"></a>
+                 <strong><span class="discount-message1">할인 중</span></strong><!-- 가게 할인 시간 정하게 되면 -->
+                 <span class="discount-time time_sale_<%= post.id %>"></span><!-- 가게 할인 시간 -->
+
+                  <script>
+                      
+                  </script> 
+                </li>
+               <% end %>
+               </ul>
                <% else %>
                  
                  <ul style="margin:0 15px 0 15px;">
@@ -247,9 +331,9 @@ li .item{float: left; position: absolute; margin-left: 5px;}
                          <% if post.category== 1 %>
                               <img src="/assets/커피 마커.png" class="item-icon">
                          <% elsif post.category== 2 %>
-                              <img src="/assets/맥주 마커.png" class="item-icon">
-                         <% elsif post.category== 3 %>
                               <img src="/assets/식당 마커.png" class="item-icon">
+                         <% elsif post.category== 3 %>
+                              <img src="/assets/맥주 마커.png" class="item-icon">
                          <% elsif post.category== 4 %>
                               <img src="/assets/마트 마커.png" class="item-icon">
                          <% end %>
@@ -269,7 +353,33 @@ li .item{float: left; position: absolute; margin-left: 5px;}
                <% end %>
               </div>
               <div class="tab-pane fade" id="pills-d" role="tabpanel" aria-labelledby="pills-d-tab">
-                   <% if current_user.nil? %>
+                <% if current_user.nil? %><br>
+               <p style="text-align:center; color:grey;">회원가입 후 현재 주소를 바탕으로 가게들을 확인하세요! </p>
+                <ul style="margin:0 15px 0 15px;">
+                  <% @posts.each do |post| %>
+                 <a href='javascript:;' onclick= 'setCenter(<%=post.lat%>, <%= post.lng %>);'><li>
+                 <% if post.category== 1 %>
+                      <img src="/assets/커피 마커.png" class="item-icon">
+                 <% elsif post.category== 2 %>
+                      <img src="/assets/식당 마커.png" class="item-icon">
+                 <% elsif post.category== 3 %>
+                      <img src="/assets/맥주 마커.png" class="item-icon">
+                 <% elsif post.category== 4 %>
+                      <img src="/assets/마트 마커.png" class="item-icon">
+                 <% end %>
+                 </a>
+                 <strong><span class="item"><%=post.username%></span></strong> <!-- 가게 이름 -->
+                 <span class="item-address"><%=post.address%></span> <!-- 가게 주소--> 
+                 <a href="/post/<%= post.id%>" data-remote="true"><img src="/assets/할인 중 이모티콘.png" class="item-discount1"></a>
+                 <strong><span class="discount-message1">할인 중</span></strong><!-- 가게 할인 시간 정하게 되면 -->
+                 <span class="discount-time time_sale_<%= post.id %>"></span><!-- 가게 할인 시간 -->
+
+                  <script>
+                      
+                  </script> 
+                </li>
+               <% end %>
+               </ul>
                <% else %>
                  
                  <ul style="margin:0 15px 0 15px;">
@@ -278,9 +388,9 @@ li .item{float: left; position: absolute; margin-left: 5px;}
                          <% if post.category== 1 %>
                               <img src="/assets/커피 마커.png" class="item-icon">
                          <% elsif post.category== 2 %>
-                              <img src="/assets/맥주 마커.png" class="item-icon">
-                         <% elsif post.category== 3 %>
                               <img src="/assets/식당 마커.png" class="item-icon">
+                         <% elsif post.category== 3 %>
+                              <img src="/assets/맥주 마커.png" class="item-icon">
                          <% elsif post.category== 4 %>
                               <img src="/assets/마트 마커.png" class="item-icon">
                          <% end %>
@@ -301,7 +411,33 @@ li .item{float: left; position: absolute; margin-left: 5px;}
               </div>
               
               <div class="tab-pane fade" id="pills-e" role="tabpanel" aria-labelledby="pills-e-tab">
-                   <% if current_user.nil? %>
+                <% if current_user.nil? %><br>
+               <p style="text-align:center; color:grey;">회원가입 후 현재 주소를 바탕으로 가게들을 확인하세요! </p>
+                <ul style="margin:0 15px 0 15px;">
+                  <% @posts.each do |post| %>
+                 <a href='javascript:;' onclick= 'setCenter(<%=post.lat%>, <%= post.lng %>);'><li>
+                 <% if post.category== 1 %>
+                      <img src="/assets/커피 마커.png" class="item-icon">
+                 <% elsif post.category== 2 %>
+                      <img src="/assets/식당 마커.png" class="item-icon">
+                 <% elsif post.category== 3 %>
+                      <img src="/assets/맥주 마커.png" class="item-icon">
+                 <% elsif post.category== 4 %>
+                      <img src="/assets/마트 마커.png" class="item-icon">
+                 <% end %>
+                 </a>
+                 <strong><span class="item"><%=post.username%></span></strong> <!-- 가게 이름 -->
+                 <span class="item-address"><%=post.address%></span> <!-- 가게 주소--> 
+                 <a href="/post/<%= post.id%>" data-remote="true"><img src="/assets/할인 중 이모티콘.png" class="item-discount1"></a>
+                 <strong><span class="discount-message1">할인 중</span></strong><!-- 가게 할인 시간 정하게 되면 -->
+                 <span class="discount-time time_sale_<%= post.id %>"></span><!-- 가게 할인 시간 -->
+
+                  <script>
+                      
+                  </script> 
+                </li>
+               <% end %>
+               </ul>   
                <% else %>
                  
                  <ul style="margin:0 15px 0 15px;">
@@ -310,9 +446,9 @@ li .item{float: left; position: absolute; margin-left: 5px;}
                          <% if post.category== 1 %>
                               <img src="/assets/커피 마커.png" class="item-icon">
                          <% elsif post.category== 2 %>
-                              <img src="/assets/맥주 마커.png" class="item-icon">
-                         <% elsif post.category== 3 %>
                               <img src="/assets/식당 마커.png" class="item-icon">
+                         <% elsif post.category== 3 %>
+                              <img src="/assets/맥주 마커.png" class="item-icon">
                          <% elsif post.category== 4 %>
                               <img src="/assets/마트 마커.png" class="item-icon">
                          <% end %>
@@ -334,7 +470,33 @@ li .item{float: left; position: absolute; margin-left: 5px;}
               </div>
               
               <div class="tab-pane fade" id="pills-f" role="tabpanel" aria-labelledby="pills-f-tab">
-                   <% if current_user.nil? %>
+                   <% if current_user.nil? %><br>
+               <p style="text-align:center; color:grey;">회원가입 후 현재 주소를 바탕으로 가게들을 확인하세요! </p>
+                   <ul style="margin:0 15px 0 15px;">
+                  <% @posts.each do |post| %>
+                 <a href='javascript:;' onclick= 'setCenter(<%=post.lat%>, <%= post.lng %>);'><li>
+                 <% if post.category== 1 %>
+                      <img src="/assets/커피 마커.png" class="item-icon">
+                 <% elsif post.category== 2 %>
+                      <img src="/assets/식당 마커.png" class="item-icon">
+                 <% elsif post.category== 3 %>
+                      <img src="/assets/맥주 마커.png" class="item-icon">
+                 <% elsif post.category== 4 %>
+                      <img src="/assets/마트 마커.png" class="item-icon">
+                 <% end %>
+                 </a>
+                 <strong><span class="item"><%=post.username%></span></strong> <!-- 가게 이름 -->
+                 <span class="item-address"><%=post.address%></span> <!-- 가게 주소--> 
+                 <a href="/post/<%= post.id%>" data-remote="true"><img src="/assets/할인 중 이모티콘.png" class="item-discount1"></a>
+                 <strong><span class="discount-message1">할인 중</span></strong><!-- 가게 할인 시간 정하게 되면 -->
+                 <span class="discount-time time_sale_<%= post.id %>"></span><!-- 가게 할인 시간 -->
+
+                  <script>
+                      
+                  </script> 
+                </li>
+               <% end %>
+               </ul>
                <% else %>
                  
                  <ul style="margin:0 15px 0 15px;">
@@ -343,9 +505,9 @@ li .item{float: left; position: absolute; margin-left: 5px;}
                          <% if post.category== 1 %>
                               <img src="/assets/커피 마커.png" class="item-icon">
                          <% elsif post.category== 2 %>
-                              <img src="/assets/맥주 마커.png" class="item-icon">
-                         <% elsif post.category== 3 %>
                               <img src="/assets/식당 마커.png" class="item-icon">
+                         <% elsif post.category== 3 %>
+                              <img src="/assets/맥주 마커.png" class="item-icon">
                          <% elsif post.category== 4 %>
                               <img src="/assets/마트 마커.png" class="item-icon">
                          <% end %>
@@ -465,9 +627,9 @@ li .item{float: left; position: absolute; margin-left: 5px;}
                          <% if post.category== 1 %>
                               <img src="/assets/커피 마커.png" class="modal-icon">
                          <% elsif post.category== 2 %>
-                              <img src="/assets/맥주 마커.png" class="modal-icon">
-                         <% elsif post.category== 3 %>
                               <img src="/assets/식당 마커.png" class="modal-icon">
+                         <% elsif post.category== 3 %>
+                              <img src="/assets/맥주 마커.png" class="modal-icon">
                          <% elsif post.category== 4 %>
                               <img src="/assets/마트 마커.png" class="modal-icon">
                          <% end %>
@@ -563,6 +725,7 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
     {
         id: '<%= x.id %>',
         title: '<%= x.title %>',
+        username: '<%= x.username %>',
         content: '<%= x.content %>',// 인포윈도우 안에 직접 링크 먹이는 법
         latlng: new daum.maps.LatLng(<%= x.lat %>, <%= x.lng %>)
         
@@ -594,7 +757,7 @@ for (var i = 0; i < positions.length; i ++) {
  
     // 마커에 표시할 인포윈도우를 생성합니다 
     var infowindow = new daum.maps.InfoWindow({
-        content: positions[i].title // 인포윈도우에 표시할 내용
+        content: positions[i].username // 인포윈도우에 표시할 내용
     });    // 생성된 마커를 배열에 추가합니다
     markers.push(marker);
  
