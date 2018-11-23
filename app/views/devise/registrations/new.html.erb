@@ -1,0 +1,304 @@
+<style>
+a:hover{color:#CF3653;}
+.jumbotron{border: 1px solid rgb(217, 217, 217);}
+.new_user{margin-left:15px;}
+#menu_wrap{margin-left: 100px; margin-bottom: 20px;}
+</style>
+
+<div class="container">
+  <div class="jumbotron" style="padding:0px; margin-top: 50px; width:1100px; margin-left: auto; margin-right: auto; background-color: white; border-radius: 15px; box-shadow: 0 6px 12px rgba(0,0,0,.1);">
+    <header class="text-center" style="background-color:#CF3653;  border-radius: 15px 15px 0 0; color: white;">
+      <div style="padding:20px;"><br>
+        <a class="navbar-brand" href="/post/index">
+          <img src="/assets/로고 최종.png"  height="60" class="d-inline-block align-top" alt="logo">
+        </a>
+    <h2>회원가입</h2>
+     </div>
+    </header>
+    <div style="padding:30px 50px 30px 50px;">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <div class="row">
+        <div class="col-4 " style="display:inline; padding-left: 50px;">
+          
+            <!--<#%= devise_error_messages! %>-->
+              <div class="field" style="visibility:hidden;">
+              <%= f.text_area :lat, id: :lat, readonly: "readonly", rows: 1 %>
+              </div>
+            <div class="field"><i class="fa fa-paper-plane"></i>
+              <%= f.label :이메일 %><br />
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", size:25 %>
+            </div>
+          
+            
+            <!-- ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ -->
+            
+            <!--</div>-->
+            <!--  <div class="search_map_search">-->
+                  <!--<form name="form">-->
+                    <!--<select id="sido" name="test" onchange="changes(this.value)">-->
+                    <!--  <#% @sidoArr.each do |s| %>-->
+                    <!--     <option value="<%#=s %>" > <%#=s%> </option>-->
+                    <!-- <#% end %>-->
+                    <!--</select>-->
+                    <!--<select id="sigu" name="test2">-->
+                    <!--  <option>전체</option>-->
+                    <!--</select>-->
+            <!--        <input id="name_input" type="text" style="background-color:white;border:1px solid #ccc;width:27%;" placeholder="어린이집 이름" name="name">-->
+            <!--        <input onClick="getArea()" class"shadow-sm" style="height:42px"type="submit" value="검색">-->
+                  <!--</form>-->
+            <!--  </div>-->
+            
+            
+            <!--<div class="field">-->
+            <!--  <#%= f.label :"가게 주소: " %><br />-->
+            <!--  <#%= f.text_field :address, placeholder: " 대구광역시 북구 대학로 80" id="input_area" %>-->
+            <!--</div>-->
+            
+            <div class="field"><i class="fa fa-lock"></i>
+              <%= f.label :비밀번호 %>
+              <% if @minimum_password_length %>
+              <em>(최소 <%= @minimum_password_length %>글자)</em>
+              <% end %><br />
+              <%= f.password_field :password, autocomplete: "new-password", size:25 %>
+            </div>
+          
+            <div class="field"><i class="fa fa-lock"></i>
+              <%= f.label :비밀번호_재확인 %><br />
+              <%= f.password_field :password_confirmation, autocomplete: "new-password", size:25 %>
+            </div>
+              <div class="field" style="visibility:hidden;">
+                <%= f.text_area :lng, id: :lng, readonly: "readonly", rows: 1  %>
+              </div>            
+            <div class="field"><i class="fas fa-store"></i>
+              <%= f.label :"상호 " %><br />
+              <%= f.text_field :username, autofocus: true, autocomplete: "이름", size:25  %>
+            </div>
+           
+             <div class="field"><i class="fas fa-map-marker-alt"></i>
+              <%= f.label :"주소 " %><br />
+              <%#= f.text_field :address, autofocus: true, autocomplete: "주소", size:25  %>
+              <%= f.text_area :address, id: :address, readonly: "readonly", rows: 1  %>
+            </div>
+             <div class="field"><i class="fas fa-check"></i>
+               <%= f.label :"가게 유형 " %>
+              <%= f.select(:category, options_for_select([['카페', 1], ['식당', 2], ['주점', 3], ['마트', 4]])) %> <!--시준-->
+              <!--<#%= f.select :category, options_for_select([['음식점', 1.to_i], ['카페', 2.to_i], ['마트', 3], ['규민', 4]], params[:category]) %>-->
+            </div>   
+           
+            <div class="actions" >
+              <%= f.submit "Sign up", :class => "btn-danger btn" %>
+            </div>
+            
+            <%= render "devise/shared/links" %>
+            <% end %>
+            
+
+            <!--여기는 안보이는 값입니다.//시준-->
+                 
+            <!--<div class="row">-->
+            <!--  <div class="form-group col">-->
+            <!--      <label for="exampleFormControlSelect1">Category</label>-->
+            <!--      <select name="input_category" id="input_category" class="form-control">-->
+            <!--        <option value="" disabled selected>Choose your option</option>-->
+            <!--        <option value="1">K-POP</option>-->
+            <!--        <option value="2">MOVIE</option>-->
+            <!--        <option value="3">ANIMATION</option>            -->
+            <!--        <option value="4">GAME</option>-->
+            <!--        <option value="5">DRAMA</option>-->
+            <!--        <option value="6">BEAUTY</option>-->
+            <!--        <option value="7">ECT</option>-->
+            <!--      </select>-->
+            <!--  </div>-->
+            
+            
+           
+       
+        </div>
+        
+        
+        
+      
+            <!--<div class="form-group col-md-2">-->
+            <!--      <label for="exampleFormControlInput1">x축</label>-->
+            <!--      <textarea id="lat" readonly="readonly"  rows="1" name="input_lat" style="display:none;"></textarea>-->
+            <!--   </div>-->
+                
+                
+            <!--   <div class="form-group col-md-2">-->
+            <!--      <label for="exampleFormControlInput1">y축</label>-->
+            <!--      <textarea id="lng" readonly="readonly" rows="1" name="input_lng"></textarea>-->
+            <!--   </div>-->
+        <div class="col-8" >
+          
+          <div id="menu_wrap" class="bg_white">
+              
+              <div class="option">
+                  <div>
+                      <form onsubmit="PlaceSearch(); return false;"><i class="fas fa-question"></i>
+                          주소검색 : <input type="text" value="" id="keyword" size="35"> 
+                          <button type="submit">검색하기</button> 
+                      </form>
+                  </div>
+              </div>
+              
+          </div>
+          
+          <div id="map" style="width:100%;height:500px;"></div>
+        </div>    
+      </div>
+       
+      
+     
+        
+   </div>  
+ </div>
+</div>  
+  <!--<div style="display:inline;float:right;width:68%">-->
+  <!--   <div id="map" style="width:100%; height:800px;"></div>-->
+    
+  <!--</div>-->
+
+
+<script language=javascript>
+
+
+  //   var container = document.getElementById('map');
+  //   var options = {
+  //       center: new daum.maps.LatLng(37.86890322758033, 127.74428448833586), // 최초 글 작성 시 지도의 중심좌표
+  //       level: 5
+      
+      
+  //   };
+
+  // var map = new daum.maps.Map(container, options);
+
+
+
+  
+
+  var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+      mapOption = {
+        center: new daum.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+        level: 3// 지도의 확대 레벨
+    };  
+    
+    var infowindow = new daum.maps.InfoWindow({zIndex:1});
+
+// 지도를 생성합니다    
+  var map = new daum.maps.Map(mapContainer, mapOption); 
+// 장소 검색 객체를 생성합니다
+  var ps = new daum.maps.services.Places();
+
+   PlaceSearch();
+
+    function PlaceSearch(){
+        
+    var keyword = document.getElementById('keyword').value;
+
+    // if (!keyword.replace(/^\s+|\s+$/g, '')) {
+    //     alert('키워드를 입력해주세요!');
+    //     return false;
+    //     }
+    
+    	ps.keywordSearch(keyword, placesSearchCB); 
+    }
+        
+        
+    // 키워드 검색 완료 시 호출되는 콜백함수 입니다
+    function placesSearchCB (data, status, pagination) {
+    if (status === daum.maps.services.Status.OK) {
+
+        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+        // LatLngBounds 객체에 좌표를 추가합니다
+        var bounds = new daum.maps.LatLngBounds();
+
+        for (var i=0; i<data.length; i++) {
+            displayMarker(data[i]);    
+            bounds.extend(new daum.maps.LatLng(data[i].y, data[i].x));
+        }       
+
+        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+        map.setBounds(bounds);
+    } 
+}
+    
+    // 지도에 마커를 표시하는 함수입니다
+    function displayMarker(place) {
+      var markerImageUrl = '/assets/마커.png', 
+          markerImageSize = new daum.maps.Size(35, 42), // 마커 이미지의 크기
+          markerImageOptions = { 
+              offset : new daum.maps.Point(16, 32)// 마커 좌표에 일치시킬 이미지 안의 좌표
+          };
+          
+      // 마커 이미지를 생성한다
+      var markerImage = new daum.maps.MarkerImage(markerImageUrl, markerImageSize, markerImageOptions);
+
+    	// 마커를 생성하고 지도에 표시합니다
+    	var marker = new daum.maps.Marker({
+    		map: map,
+    		image : markerImage,
+    		position: new daum.maps.LatLng(place.latitude,
+    							place.longitude) 
+    	});
+    
+    	// 마커에 클릭이벤트를 등록합니다
+    // 	daum.maps.event.addListener(marker, 'click', function() {
+    // 		// 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+    // 		infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
+    // 		infowindow.open(map, marker);
+    // 	});
+    
+    daum.maps.event.addListener(map, 'click', function(mouseEvent) {        
+        
+        // 클릭한 위도, 경도 정보를 가져옵니다 
+        var latlng = mouseEvent.latLng; 
+        
+        // 마커 위치를 클릭한 위치로 옮깁니다
+        marker.setPosition(latlng);
+        
+        // X축 좌표값을 얻어냄 
+        var map_x = document.getElementById('lat'); 
+        map_x.innerHTML = latlng.getLat();
+        
+        // Y축 좌표값을 얻어냄
+        var map_y = document.getElementById('lng'); 
+        map_y.innerHTML = latlng.getLng();
+        
+        
+        
+        searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
+        if (status === daum.maps.services.Status.OK) {
+            var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
+            detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
+            
+            var content = '<div class="bAddr">' +
+                            '<span class="title">법정동 주소정보</span>' + 
+                            detailAddr + 
+                        '</div>';
+
+            // 마커를 클릭한 위치에 표시합니다 
+            marker.setPosition(mouseEvent.latLng);
+            marker.setMap(map);
+
+            // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+             var map_z = document.getElementById('address'); 
+             map_z.innerHTML =result[0].road_address.address_name;
+        }   
+    });
+        
+        
+        
+     
+        
+    });
+    }
+    
+    
+    searchAddrFromCoords(map.getCenter(), displayCenterInfo);
+    
+    function searchAddrFromCoords(coords, callback) {
+    // 좌표로 행정동 주소 정보를 요청합니다
+    geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);         
+}
+
+  </script>

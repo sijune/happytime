@@ -1,0 +1,53 @@
+
+<style>
+
+</style>
+
+<body>
+<div id="post-modal" class="modal fade" role="dialog">
+   <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="border: solid 5px #cf3653">
+          <div class="modal-header">
+
+
+            <h4 class="modal-title" style="font-weight: bold;" id="myModalLabel">
+                         <% if @post.category== 1 %>
+                              <img src="/assets/커피 마커.png" class="modal-icon">
+                         <% elsif @post.category== 2 %>
+                              <img src="/assets/맥주 마커.png" class="modal-icon">
+                         <% elsif @post.category== 3 %>
+                              <img src="/assets/식당 마커.png" class="modal-icon">
+                         <% elsif @post.category== 4 %>
+                              <img src="/assets/마트 마커.png" class="modal-icon">
+                         <% end %>
+                         <%= @post.username %></h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            
+          </div>
+           
+         
+          <div class="modal-body" style="padding:20px;">      
+            <div style="float:left; border: solid 1px grey;">
+                <% unless @post.image.nil? %>
+                  <%= image_tag @post.thumb %>
+                <% else %>
+                  <img src="/assets/배경없는로고.png" width="350" height="350">
+                <% end %>
+            </div>
+            
+            <div class="modal-info" style="padding-left: 340px;">
+              <p style="font-size: 13px; color:grey;"><i class="fas fa-phone"></i> 053-555-5555</p>
+              <p style="font-size: 13px; color:grey;"><i class="fas fa-map-marker-alt"></i> <%= @post.address%><br></p>
+              <hr/>
+              <h4 style="font-size: 15px; font-weight: bold;"><%= @post.title %></h4>
+              <p style="font-size: 15px;"><%= @post.price%>원</p>
+              <p style="font-size: 15px;"><%= @post.content %></p>
+ 
+            </div>
+          </div>
+            
+    </div>
+</div>
+</div>
+
+</body>

@@ -1,0 +1,32 @@
+<style>
+    .nav1 {
+        display:inline;
+        float:right;
+    }
+    .nav1 a{
+
+        color:#4F1520;
+        margin:0 5px 0 5px;
+    }    
+    .nav1 a:hover{
+        color:white;
+    }  
+    .nav1 a:active{
+        color:white;
+    }  
+</style>
+<nav class="navbar navbar-dark" style="background-color:#CF3653;">
+
+     <div class="nav1">
+       <a class="navbar-brand" href="/post/index">
+        <img src="/assets/로고 최종.png"  height="25" class="d-inline-block align-top" alt="logo">
+      </a>
+        <% if user_signed_in? %>
+            <%= link_to "회원정보", edit_user_registration_path %>
+            <%= link_to "로그아웃", destroy_user_session_path %>
+        <% else %>
+                <%= link_to "로그인", user_session_path %>
+                <%= link_to "회원가입", "/users/sign_up" %>
+        <% end %>
+    </div>
+</nav>

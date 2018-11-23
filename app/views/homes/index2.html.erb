@@ -1,0 +1,940 @@
+<style>
+.dropdown {position: absolute;top: 10px;right: 15px;z-index: 1;}
+.bd-search, header {
+    padding: 1rem 15px;
+}
+
+header{border-right: solid 0.5px black;
+    
+}
+.menu-content{border-right: solid 0.5px black;}
+
+.nav-link{color: #4F1520; padding:.5rem 2rem; }/*무슨색을 할까요?*/
+.nav-link:hover{color:white;background: none!important;}
+.nav-link:active{color:white;}
+.nav-link.active,
+.show > .nav-link {
+color: white!important; 
+background: none!important;
+}
+
+.nav-link-2{color: #4F1520; padding:.5rem 2rem; font-size: 10px;  }
+.nav-link-2:hover{color:white;background: none!important;}
+.nav-link-2:active{color:white;}
+.nav-link-2.active,
+.show > .nav-link{
+    color: white!important;
+    background:none;
+}
+
+.logo{width:60px; margin:10px;}  
+  
+.btn1{        border: 0;
+        background: white;
+        position: relative;
+        left: -40px;
+}
+
+
+
+
+/* 원 그리기 파일   */
+.info {position:relative;top:5px;left:5px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;font-size:12px;padding:5px;background:#fff;list-style:none;margin:0;} 
+.info:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}    
+.info .label {display:inline-block;width:50px;}
+.number {font-weight:bold;color:#00a0e9;} 
+
+/*--------------------------------메뉴바*--------------------------*/
+ul{ list-style: none; margin: 0; padding: 0;}
+li{ margin-left: 20px; height: 120px; line-height: 30px; position:relative; border-bottom:0.5px solid rgb(183, 181, 192, 0.6); margin-right: 15px; }
+li .item{float: left; position: absolute; margin-left: 5px;}
+.item{padding-left: 10px; margin-top: 35px; font-size: 20px;}
+.item-address{float: left; display: inline-block; margin-top: 80px; margin-left: 15px; font-size: 12px;}
+.item-icon{float: left; position: relative; height: 40px; width: 40px; margin-top: 37px; margin-right: 0px ; }
+.item-discount1{float: right; height: 20px; width: 20px; margin-top: 50px; margin-right: 30px;}
+.item-discount2{float: right; height: 20px; width: 20px; margin-top: 60px; margin-right: 30px;}
+.discount-message1{float: right; margin-top: 15px; color: #CF3653; margin-right: -30px;}
+.discount-time{ float: right; margin-top: 77px; margin-right: -53px; font-size: 12px;}
+.discount-message2{float: right; margin-top: 25px; color: #B7B5C0; margin-right: -30px;}
+
+
+
+
+
+/* 카테고리별 마커 띄우기  */
+#mapwrap{position:relative;overflow:hidden;}
+.category, .category *{margin:0;padding:0;color:#000;}   
+.category {position:absolute;overflow:hidden;top:10px;left:10px;border-radius: 5px; width:150px;height:60px;z-index:10;border:1px solid grey;font-size:12px;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);text-align:center;background-color:#fff;}
+.category .menu_selected {background:#CF3653;color:#fff;border-left:1px solid #915B2F;border-right:1px solid #915B2F;margin:0 -1px;} 
+.category li{list-style:none;float:left;width:50px;height:60px;padding-top:5px;cursor:pointer;border-right:1px solid #acacac;} 
+.category .ico_comm {display:block;margin:0 auto 2px;width:22px;height:26px;background:url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/category.png') no-repeat;} 
+.category .ico_coffee {background-position:-10px 0;}  
+.category .ico_store {background-position:-10px -36px;}   
+.category .ico_carpark {background-position:-10px -72px;} 
+
+
+
+
+
+
+
+
+/*  검색 목록 만들기   */
+
+
+/*.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}*/
+/*.map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}*/
+/*.map_wrap {position:relative;width:100%;height:500px;}*/
+/*#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}*/
+/*.bg_white {background:#fff;}*/
+/*#menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}*/
+/*#menu_wrap .option{text-align: center;}*/
+/*#menu_wrap .option p {margin:10px 0;}  */
+/*#menu_wrap .option button {margin-left:5px;}*/
+/*#placesList li {list-style: none;}*/
+/*#placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}*/
+/*#placesList .item span {display: block;margin-top:4px;}*/
+/*#placesList .item h5, #placesList .item .info {text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}*/
+/*#placesList .item .info{padding:10px 0 10px 55px;}*/
+/*#placesList .info .gray {color:#8a8a8a;}*/
+/*#placesList .info .jibun {padding-left:26px;background:url(http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}*/
+/*#placesList .info .tel {color:#009900;}*/
+/*#placesList .item .markerbg {float:left;position:absolute;width:36px; height:37px;margin:10px 0 0 10px;background:url(http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;}*/
+/*#placesList .item .marker_1 {background-position: 0 -10px;}*/
+/*#placesList .item .marker_2 {background-position: 0 -56px;}*/
+/*#placesList .item .marker_3 {background-position: 0 -102px}*/
+/*#placesList .item .marker_4 {background-position: 0 -148px;}*/
+/*#placesList .item .marker_5 {background-position: 0 -194px;}*/
+/*#placesList .item .marker_6 {background-position: 0 -240px;}*/
+/*#placesList .item .marker_7 {background-position: 0 -286px;}*/
+/*#placesList .item .marker_8 {background-position: 0 -332px;}*/
+/*#placesList .item .marker_9 {background-position: 0 -378px;}*/
+/*#placesList .item .marker_10 {background-position: 0 -423px;}*/
+/*#placesList .item .marker_11 {background-position: 0 -470px;}*/
+/*#placesList .item .marker_12 {background-position: 0 -516px;}*/
+/*#placesList .item .marker_13 {background-position: 0 -562px;}*/
+/*#placesList .item .marker_14 {background-position: 0 -608px;}*/
+/*#placesList .item .marker_15 {background-position: 0 -654px;}*/
+/*#pagination {margin:10px auto;text-align: center;}*/
+/*#pagination a {display:inline-block;margin-right:10px;}*/
+/*#pagination .on {font-weight: bold; cursor: default;color:#777;}*/
+/*                                              */
+
+</style>
+
+
+<body style="margin:0px;" >
+
+      
+   
+	<div class="container-fluid" style="width:100%;height:100%; position: fixed;padding:0px;">
+	<div class="row" style="width:100%;height:100%;margin:0px;">
+	    <div class="col-4 " style="padding:0px;" >
+	      <header style="background-color:#CF3653; ">
+	          <div class="text-center">
+	              
+	              <br>
+	              <img src="/assets/로고 최종.png" class="logo">
+	          </div>
+     
+            <div class="option ">
+                <form onsubmit="PlaceSearch(); return false;" class="bd-search form-inline justify-content-center" style=" margin:auto; "> 
+                <!-- 회원가입에 있는 검색창과는 달리 주소 관련 키워드만 검색이 먹음 -->
+                    
+                    <img src="/assets/마커.png" style="width: 30px; padding-right:5px;"><input type="text" class="form-control  " value="" id="keyword" size="35" placeholder="동네 주변 가게를 검색하세요!"> 
+                    <button type="submit"  class="btn btn1"><i class="fas fa-search"></i></button>
+                    
+                </form>
+
+            </div>
+ 
+            
+           
+            <nav class="nav nav-pills justify-content-center" id="pills-tab" role="tablist">
+              <a class="nav-link active" id="pills-a-tab" data-toggle="pill" href="#pills-a" aria-controls="pills-a" aria-selected="true">가까운 거리순</a>
+              <a class="nav-link" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">종류별</a>
+
+            </nav>
+            
+              <div class="collapse multi-collapse" id="collapseExample">
+                  <nav class="nav nav-pills justify-content-center" id="pills-tab" role="tablist">
+                      
+                    <a class="nav-link-2" id="pills-c-tab" data-toggle="pill" href="#pills-c" aria-controls="pills-c" aria-selected="false">카페</a>
+                    <a class="nav-link-2" id="pills-c-tab" data-toggle="pill" href="#pills-c" aria-controls="pills-c" aria-selected="false">음식점</a>
+                    <a class="nav-link-2" id="pills-c-tab" data-toggle="pill" href="#pills-c" aria-controls="pills-c" aria-selected="false">주점</a>
+                    <a class="nav-link-2" id="pills-c-tab" data-toggle="pill" href="#pills-c" aria-controls="pills-c" aria-selected="false">마트</a>
+                  </nav>
+              </div>	        
+	      </header>
+	      
+	      
+	      <div class="menu-content" style="overflow:scroll; overflow-x:scroll; height:80%;" >
+	        <div class="tab-content" id="pills-tabContent">
+              <div class="tab-pane fade show active" id="pills-a" role="tabpanel" aria-labelledby="pills-a-tab">
+                  
+                   <!--  글 쓰면 카테고리 넘버에 따라서 사진도 나오고 다 나옵니다. -->	      
+            <ul>
+               <% @posts.each do |post| %>
+                 <% if post.category== 1 %>
+                  <li><img src="/assets/커피 마커.png" class="item-icon">
+                 <% elsif post.category== 2 %>
+                  <li><img src="/assets/맥주 마커.png" class="item-icon">
+                 <% elsif post.category== 3 %>
+                  <li><img src="/assets/식당 마커.png" class="item-icon">
+                 <% elsif post.category== 4 %>
+                  <li><img src="/assets/마트 마커.png" class="item-icon">
+                 <% end %>
+                 <strong><span class="item"><%=post.title%></span></span></strong> <!-- 가게 이름 -->
+                 <span class="item-address"><%=post.address%></span> <!-- 가게 주소--> 
+                 <img src="/assets/할인 중 이모티콘.png" class="item-discount1">
+                 <strong><span class="discount-message1">할인 중</span></strong><!-- 가게 할인 시간 정하게 되면 -->
+                 <span class="discount-time" id="time_sale_<%= post.id %>"></span><!-- 가게 할인 시간 -->
+                </li>
+               <% end %>
+            </ul>
+                  
+              </div>
+
+              <div class="tab-pane fade" id="pills-c" role="tabpanel" aria-labelledby="pills-c-tab">.종류별..
+              </div>
+
+            </div>
+	    
+	    
+	    
+	   
+                
+                <br>
+                
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th>Content</th>
+                      <th style="visibility:hidden;">Lat</th>
+                      <th style="visibility:hidden;">Lng</th>
+                      <!--<th>Address</th>-->
+                      <th colspan="3"></th>
+                    </tr>
+                  </thead>
+                 <% if current_user.nil? %>
+                  
+                   <% @posts.each do |post| %>
+                      
+                      <tr data-toggle="modal" data-target="#exampleModal">
+                        <% unless post.image.nil? %>
+                            <td><%= image_tag post.thumb %></td>
+                        <% end %>
+                            <td><%= post.title %></td>
+                            <td><%= post.content %></td>
+                              <td><%= post.end_date.split(" ")[0] %>년 
+                                <%= post.end_date.split(" ")[1] %>월 
+                                <%= post.end_date.split(" ")[2] %>일 
+                                <%= post.end_date.split(" ")[3] %>시 
+                                <%= post.end_date.split(" ")[4] %>분까지 남은시간:  </td>
+                           <td><span id="time_sale_<%= post.id %>"></span></td>
+                               
+                            <td style="visibility:hidden;display:none;"><%= post.lat %></td>
+                            <td style="visibility:hidden;display:none;"><%= post.lng %></td>
+                            <td><%#= post.address %></td>
+                            <td><%#= link_to 'Map', post_map_path %></td>
+                             <td><%= link_to 'View Post', post_path(post), remote: true %> <td>
+                            <td><%= link_to 'Edit', edit_post_path(post) %></td>
+                            <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                           
+                       </tr>
+                     <% end %>
+                               
+                  
+                  <% else %>
+                  
+                  
+                  
+                  <tbody>
+                    <% @posts.each do |post| %>
+                      
+                      <tr data-toggle="modal" data-target="#exampleModal">
+                        <% unless post.image.nil? %>
+                            <td><%= image_tag post.thumb %></td>
+                        <% end %>
+                            <td><%= post.title %></td>
+                            <td><%= post.content %></td>
+                            <td><%= post.end_date.split(" ")[0] %>년 
+                                <%= post.end_date.split(" ")[1] %>월 
+                                <%= post.end_date.split(" ")[2] %>일 
+                                <%= post.end_date.split(" ")[3] %>시 
+                                <%= post.end_date.split(" ")[4] %>분까지 남은시간:  </td>
+                            <td><span id="time_sale_<%= post.id %>"></span></td>
+                               
+                            <td style="visibility:hidden;display:none;"><%= post.lat %></td>
+                            <td style="visibility:hidden;display:none;"><%= post.lng %></td>
+                            <td><%#= post.address %></td>
+                            <td><%#= link_to 'Map', post_map_path %></td>
+                             <td><%= link_to 'View Post', home_path(post), remote: true %> <td>
+                            <td><%= link_to 'Edit', edit_post_path(post) %></td>
+                            <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                           
+                      </tr>
+                    <% end %>
+                    <% end %>
+                  </tbody>
+                </table>
+                
+                <!--<div id='post-content'></div>-->
+                
+                <br>
+                
+                <!--유저 가입 및 정보 게시판-->
+            
+                <% if @post.present? %>
+                <p>ㅎㅎ</p>
+                <% else %>
+                 <a href="/post/new">글쓰기</a>
+                <% end %>
+                
+                <a href="/users/sign_in">가입하기</a>
+                
+                
+                
+                
+                
+        <br/>
+			<!--<button onclick="hideMarkers()">마커 감추기</button>-->
+   <!--         <button onclick="showMarkers()">마커 보이기</button>-->
+   <!--         <button onclick="setCenter()">지도 중심좌표 이동시키기</button> -->
+   <!--         <button onclick="removeCircles()"> 생성된 원 모두 지우기</button> <br>  -->
+        </div>
+	    </div>
+	  
+	  <div class="col-8" style="padding:0px;" >
+	     <div id="map" style="width:100%;height:100%;"></div>
+	      <div class="category">
+            <ul>
+            <li id="coffeeMenu" onclick="changeMarker('coffee')">
+                <span class="ico_comm ico_coffee"></span>
+                카페
+            </li>
+            <li id="storeMenu" onclick="changeMarker('store')">
+                <span class="ico_comm ico_store"></span>
+                음식점
+            </li>
+            <li id="carparkMenu" onclick="changeMarker('carpark')">
+                <span class="ico_comm ico_carpark"></span>
+                주점
+            </li>
+            </ul>
+        </div>
+	    </div>
+    </div>
+  
+
+	</div>
+
+
+
+<div id="mapwrap"> 
+    <!-- 지도가 표시될 div -->
+    
+    <!-- 지도 위에 표시될 마커 카테고리 -->
+    
+</div>
+
+
+</body>	
+
+
+
+
+<!-- 스타일 절취선-->
+
+
+
+<!-- //////////////////////////////////////////////////////////////////////////////////// 모달 html 코드////////////////////////////////////////////////////////////////////// -->
+
+
+<!--<div id="map-canvas"></div>-->
+<% @posts.each do |post| %>
+    <div class="modal fade" id="myModal_<%= post.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel"><%#= post.title %></h4>
+          </div>
+           
+          <div class="modal-body">
+              
+            <p id= "modal22">   ㅎㅇ  </p>
+             <tr>
+                <td><%= post.title %><%#=@post1.title %></td>
+                <td><%= post.content %><%#= @post1.content%></td>
+                <td><%= post.lat %></td>
+                <td><%= post.lng %></td>
+             </tr>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+ <% end %>
+
+
+
+
+
+
+
+
+<div class="dropdown ">
+    <button type="button" style="background-color:#CF3653;" class="btn btn-sm btn-danger" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+    <i class="fas fa-bars"></i>
+    </button>
+  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+       <% if current_user == nil %>
+         <a class="dropdown-item" href="/users/sign_in">로그인</a>
+         <a class="dropdown-item" href="/users/sign_up">가입하기</a>
+         <% else %>
+          <a class="dropdown-item" href="/post/new">글쓰기</a>
+          <a class="dropdown-item" href="/post/user_info/<%= current_user.id %>">My Page</a>
+          <%= link_to "로그아웃", destroy_user_session_path %>
+        <% end %>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+ 
+<%# //////////////////////////////////////////////////////////////////////////지도 Control 영역 (제일 아래에 작성)///////////////////////////////////////////////////////////////////////// %>
+
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+    mapOption = { 
+        center: new daum.maps.LatLng(37.86890322758033, 127.74428448833586), // 지도의 중심좌표
+        level: 5 // 지도의 확대 레벨
+    };
+ 
+ var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+ 
+ 
+ 
+ 
+// 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
+ var positions = [
+    <% @posts.each do |x| %>
+    {
+        content: '<div><a href=/post/new><%= x.title %></a></div>',  // 인포윈도우 안에 직접 링크 먹이는 법
+        latlng: new daum.maps.LatLng(<%= x.lat %>, <%= x.lng %>)
+        
+    },
+    <% end %>
+];
+
+ 
+// 지도에 표시된 마커 객체를 가지고 있을 배열입니다.
+var markers = [];
+
+var markerImageUrl = '/assets/할인 중 마커.png', 
+    markerImageSize = new daum.maps.Size(35, 42), // 마커 이미지의 크기
+    markerImageOptions = { 
+        offset : new daum.maps.Point(16, 32)// 마커 좌표에 일치시킬 이미지 안의 좌표
+    };
+    
+// 마커 이미지를 생성한다
+var markerImage = new daum.maps.MarkerImage(markerImageUrl, markerImageSize, markerImageOptions);
+ 
+for (var i = 0; i < positions.length; i ++) {
+    // 마커를 생성합니다
+    var marker = new daum.maps.Marker({
+        map: map, // 마커를 표시할 지도
+        image : markerImage, // 마커의 이미지
+        position: positions[i].latlng // 마커의 위치
+    });
+
+    
+ 
+    // 마커에 표시할 인포윈도우를 생성합니다 
+    var infowindow = new daum.maps.InfoWindow({
+        content: positions[i].content // 인포윈도우에 표시할 내용
+    });
+    
+    // 생성된 마커를 배열에 추가합니다
+    markers.push(marker);
+ 
+    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+    daum.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+    daum.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+  
+     // 마커에 클릭이벤트를 등록합니다
+    daum.maps.event.addListener(marker, 'click', function() {
+    
+          // 마커 위에 인포윈도우를 표시합니다
+          //infowindow.open(map, marker);
+           
+          
+          // 마커 클릭시 지정된 url로 새창 열어주는 코드.
+        //   url= '/post/new';
+        //   window.open(url);
+        
+          $('#myModal').modal('show');
+    });
+   
+}
+
+
+    // <#% @posts.each do |x| %>
+    // var iwContent = '<div style="padding:5px;"><%#= x.title %></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+    // iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+    // <#% end %>
+    
+    
+    
+    // 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+function makeOverListener(map, marker, infowindow) {
+    return function() {
+        infowindow.open(map, marker);
+    };
+}
+ 
+// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+function makeOutListener(infowindow) {
+    return function() {
+        infowindow.close();
+    };
+}
+
+
+
+var geocoder = new daum.maps.services.Geocoder();
+
+
+ function PlaceSearch(){
+        
+    var keyword = document.getElementById('keyword').value;
+
+    // if (!keyword.replace(/^\s+|\s+$/g, '')) {
+    //     alert('키워드를 입력해주세요!');
+    //     return false;
+    //     }
+
+// 주소로 좌표를 검색합니다
+    geocoder.addressSearch( keyword , function(result, status) {
+
+    // 정상적으로 검색이 완료됐으면 
+     if (status === daum.maps.services.Status.OK) {
+
+        var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+
+        map.setCenter(coords);
+    } 
+ });   
+}
+
+
+
+
+
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 카테고리 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+var coffeePositions = [ 
+    <% @post_1.each do |p|%>
+    new daum.maps.LatLng(<%= p.lat %>, <%= p.lng %>),
+    <% end %>
+];
+
+// 편의점 마커가 표시될 좌표 배열입니다
+var storePositions = [
+     <% @post_2.each do |p|%>
+    new daum.maps.LatLng(<%= p.lat %>, <%= p.lng %>),
+    <% end %>
+];
+
+// 주차장 마커가 표시될 좌표 배열입니다
+var carparkPositions = [
+    <% @post_3.each do |p|%>
+    new daum.maps.LatLng(<%= p.lat %>, <%= p.lng %>),
+    <% end %>                  
+];    
+
+var markerImageSrc = 'http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/category.png';  // 마커이미지의 주소입니다. 스프라이트 이미지 입니다
+    coffeeMarkers = [], // 커피숍 마커 객체를 가지고 있을 배열입니다
+    storeMarkers = [], // 편의점 마커 객체를 가지고 있을 배열입니다
+    carparkMarkers = []; // 주차장 마커 객체를 가지고 있을 배열입니다
+
+    
+    createCoffeeMarkers(); // 커피숍 마커를 생성하고 커피숍 마커 배열에 추가합니다
+    createStoreMarkers(); // 편의점 마커를 생성하고 편의점 마커 배열에 추가합니다
+    createCarparkMarkers(); // 주차장 마커를 생성하고 주차장 마커 배열에 추가합니다
+
+    changeMarker('coffee'); // 지도에 커피숍 마커가 보이도록 설정합니다    
+
+
+// 마커이미지의 주소와, 크기, 옵션으로 마커 이미지를 생성하여 리턴하는 함수입니다
+function createMarkerImage(src, size, options) {
+    var markerImage = new daum.maps.MarkerImage(src, size, options);
+    return markerImage;            
+}
+
+// 좌표와 마커이미지를 받아 마커를 생성하여 리턴하는 함수입니다
+function createMarker(position, image) {
+    var marker = new daum.maps.Marker({
+        position: position,
+        image: image
+    });
+    
+    return marker;  
+}   
+   
+// 커피숍 마커를 생성하고 커피숍 마커 배열에 추가하는 함수입니다
+function createCoffeeMarkers() {
+    
+    for (var i = 0; i < coffeePositions.length; i++) {  
+        
+        var imageSize = new daum.maps.Size(22, 26),
+            imageOptions = {  
+                spriteOrigin: new daum.maps.Point(10, 0),    
+                spriteSize: new daum.maps.Size(36, 98)
+            };     
+        
+        // 마커이미지와 마커를 생성합니다
+        var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),    
+            marker = createMarker(coffeePositions[i], markerImage); 
+            
+        
+        // 생성된 마커를 커피숍 마커 배열에 추가합니다
+        coffeeMarkers.push(marker);
+        
+        daum.maps.event.addListener(marker, 'click', function() {
+        
+      
+          $('#myModal').modal('show');
+        });
+    }     
+}
+
+// 커피숍 마커들의 지도 표시 여부를 설정하는 함수입니다
+function setCoffeeMarkers(map) {        
+    for (var i = 0; i < coffeeMarkers.length; i++) {  
+        coffeeMarkers[i].setMap(map);
+    }        
+}
+
+// 편의점 마커를 생성하고 편의점 마커 배열에 추가하는 함수입니다
+function createStoreMarkers() {
+    for (var i = 0; i < storePositions.length; i++) {
+        
+        var imageSize = new daum.maps.Size(22, 26),
+            imageOptions = {   
+                spriteOrigin: new daum.maps.Point(10, 36),    
+                spriteSize: new daum.maps.Size(36, 98)  
+            };       
+     
+        // 마커이미지와 마커를 생성합니다
+        var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),    
+            marker = createMarker(storePositions[i], markerImage);  
+
+        // 생성된 마커를 편의점 마커 배열에 추가합니다
+        storeMarkers.push(marker);
+        
+         daum.maps.event.addListener(marker, 'click', function() {
+    
+          $('#myModal').modal('show');
+        });
+    }        
+}
+
+// 편의점 마커들의 지도 표시 여부를 설정하는 함수입니다
+function setStoreMarkers(map) {        
+    for (var i = 0; i < storeMarkers.length; i++) {  
+        storeMarkers[i].setMap(map);
+    }        
+}
+
+// 주차장 마커를 생성하고 주차장 마커 배열에 추가하는 함수입니다
+function createCarparkMarkers() {
+    for (var i = 0; i < carparkPositions.length; i++) {
+        
+        var imageSize = new daum.maps.Size(22, 26),
+            imageOptions = {   
+                spriteOrigin: new daum.maps.Point(10, 72),    
+                spriteSize: new daum.maps.Size(36, 98)  
+            };       
+     
+        // 마커이미지와 마커를 생성합니다
+        var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),    
+            marker = createMarker(carparkPositions[i], markerImage);  
+
+        // 생성된 마커를 주차장 마커 배열에 추가합니다
+        carparkMarkers.push(marker);        
+    }                
+}
+
+// 주차장 마커들의 지도 표시 여부를 설정하는 함수입니다
+function setCarparkMarkers(map) {        
+    for (var i = 0; i < carparkMarkers.length; i++) {  
+        carparkMarkers[i].setMap(map);
+    }        
+}
+
+// 카테고리를 클릭했을 때 type에 따라 카테고리의 스타일과 지도에 표시되는 마커를 변경합니다
+function changeMarker(type){
+    
+    var coffeeMenu = document.getElementById('coffeeMenu');
+    var storeMenu = document.getElementById('storeMenu');
+    var carparkMenu = document.getElementById('carparkMenu');
+    
+    // 커피숍 카테고리가 클릭됐을 때
+    if (type === 'coffee') {
+    
+        // 커피숍 카테고리를 선택된 스타일로 변경하고
+        coffeeMenu.className = 'menu_selected';
+        
+        // 편의점과 주차장 카테고리는 선택되지 않은 스타일로 바꿉니다
+        storeMenu.className = '';
+        carparkMenu.className = '';
+        
+        // 커피숍 마커들만 지도에 표시하도록 설정합니다
+        setCoffeeMarkers(map);
+        setStoreMarkers(null);
+        setCarparkMarkers(null);
+        
+    } else if (type === 'store') { // 편의점 카테고리가 클릭됐을 때
+    
+        // 편의점 카테고리를 선택된 스타일로 변경하고
+        coffeeMenu.className = '';
+        storeMenu.className = 'menu_selected';
+        carparkMenu.className = '';
+        
+        // 편의점 마커들만 지도에 표시하도록 설정합니다
+        setCoffeeMarkers(null);
+        setStoreMarkers(map);
+        setCarparkMarkers(null);
+        
+    } else if (type === 'carpark') { // 주차장 카테고리가 클릭됐을 때
+     
+        // 주차장 카테고리를 선택된 스타일로 변경하고
+        coffeeMenu.className = '';
+        storeMenu.className = '';
+        carparkMenu.className = 'menu_selected';
+        
+        // 주차장 마커들만 지도에 표시하도록 설정합니다
+        setCoffeeMarkers(null);
+        setStoreMarkers(null);
+        setCarparkMarkers(map);  
+    }    
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////// %%%%%%%%% 부수적인 지도 기능들%%%%%%%%%%%%%%%% ////////////////////////////////////////////////////////
+
+
+
+// /* 마커 보이기 및 숨기기 제어 */
+// // 배열에 추가된 마커들을 지도에 표시하거나 삭제하는 함수입니다
+// function setMarkers(map) {
+//     for (var i = 0; i < markers.length; i++) {
+//         markers[i].customOverlay.setMap(map);
+//     }            
+// }
+
+
+
+
+// // "마커 보이기" 버튼을 클릭하면 호출되어 배열에 추가된 마커를 지도에 표시하는 함수입니다
+// function showMarkers() {
+//     setMarkers(map)     
+// }
+ 
+// // "마커 감추기" 버튼을 클릭하면 호출되어 배열에 추가된 마커를 지도에서 삭제하는 함수입니다
+// function hideMarkers() {
+//     setMarkers(null);    
+// }
+
+
+
+
+
+// 중심좌표로 이동시키기
+
+function setCenter() {            
+    // 이동할 위도 경도 위치를 생성합니다 
+    var moveLatLon = new daum.maps.LatLng(35.803427, 128.543336);
+    
+    // 지도 중심을 이동 시킵니다
+    map.setCenter(moveLatLon);
+}
+
+
+
+
+
+
+// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+var zoomControl = new daum.maps.ZoomControl();
+map.addControl(zoomControl, daum.maps.ControlPosition.BOTTOMRIGHT);
+
+// 지도가 확대 또는 축소되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
+daum.maps.event.addListener(map, 'zoom_changed', function() {        
+    
+    // 지도의 현재 레벨을 얻어옵니다
+    var level = map.getLevel();
+} );
+
+
+
+
+// 현 위치 불러오기 ////////////////////////////////////////////////////////////////////////////////////////////////
+// HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
+if (navigator.geolocation) {
+    
+    // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+    navigator.geolocation.getCurrentPosition(function(position) {
+        
+        var lat = position.coords.latitude, // 위도
+            lon = position.coords.longitude; // 경도
+        
+        var locPosition = new daum.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+            message = '<div style="padding:5px;text-align:center">현 위치</div>'; // 인포윈도우에 표시될 내용입니다
+        
+        // 마커와 인포윈도우를 표시합니다
+        displayMarker(locPosition, message);
+            
+      });
+    
+} else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
+    
+    var locPosition = new daum.maps.LatLng(33.450701, 126.570667),    
+        message = 'geolocation을 사용할수 없어요..'
+        
+    displayMarker(locPosition, message);
+}
+
+// 지도에 마커와 인포윈도우를 표시하는 함수입니다
+function displayMarker(locPosition, message) {
+    var markerImageUrl = '/assets/마커.png', 
+        markerImageSize = new daum.maps.Size(35, 42), // 마커 이미지의 크기
+        markerImageOptions = { 
+            offset : new daum.maps.Point(16, 32)// 마커 좌표에 일치시킬 이미지 안의 좌표
+        };
+        
+    // 마커 이미지를 생성한다
+    var markerImage = new daum.maps.MarkerImage(markerImageUrl, markerImageSize, markerImageOptions);
+     
+    // 마커를 생성합니다
+    var markerb = new daum.maps.Marker({  
+        map: map, 
+        image : markerImage, // 마커의 이미지
+        position: locPosition
+    }); 
+    
+    var iwContent = message, // 인포윈도우에 표시할 내용
+        iwRemoveable = true;
+
+    // 인포윈도우를 생성합니다
+    var infowindow = new daum.maps.InfoWindow({
+        content : iwContent,
+        removable : iwRemoveable
+    });
+    
+    // 인포윈도우를 마커위에 표시합니다 
+    infowindow.open(map, markerb);
+    
+    // 지도 중심좌표를 접속위치로 변경합니다
+    map.setCenter(locPosition);      
+}    
+
+
+
+
+
+</script>
+
+<% @posts.each do |post| %>
+    <script>
+        getTime_<%=post.id%>();
+          function getTime_<%=post.id%>() {
+              var year = parseInt(<%= post.end_date.split(" ")[0] %>);
+              var month = parseInt(<%= post.end_date.split(" ")[1] %>);
+              var day = parseInt(<%= post.end_date.split(" ")[2] %>);
+              var hour = parseInt(<%= post.end_date.split(" ")[3] %>);
+              var minute = parseInt(<%= post.end_date.split(" ")[4] %>);
+            
+              now = new Date();
+              dday = new Date();
+              dday.setFullYear(year,month-1,day);
+              dday.setHours(hour);
+              dday.setMinutes(minute);
+              dday.setSeconds(0);
+            
+              days = (dday - now) / 1000 / 60 / 60 / 24;
+              daysRound = Math.floor(days);
+              months =
+              hours = (dday - now) / 1000 / 60 / 60 - (24 * daysRound);
+              hoursRound = Math.floor(hours);
+              minutes = (dday - now) / 1000 /60 - (24 * 60 * daysRound) - (60 * hoursRound);
+              minutesRound = Math.floor(minutes);
+              seconds = (dday - now) / 1000 - (24 * 60 * 60 * daysRound) - (60 * 60 * hoursRound) - (60 * minutesRound);
+              secondsRound = Math.round(seconds);
+            
+              $('#time_sale_'+ <%= post.id %>).text("TIME SALE " + daysRound + '일 ' + hoursRound+ ':' + minutesRound + ':' + secondsRound) + '남음';
+    
+            //  document.getElementById("<#%=post.id%>_0").innerHTML = daysRound;
+            //  document.getElementById("<#%=post.id%>_1").innerHTML = hoursRound;
+            //  document.getElementById("<#%=post.id%>_2").innerHTML = minutesRound;
+            //  document.getElementById("<#%=post.id%>_3").innerHTML = secondsRound;
+              newtime = window.setTimeout("getTime_<%=post.id%>();", 1000);
+      }
+
+        
+        
+    </script>
+<%end%>
+
+
+ <script>
+      
+ 
+  
+</script>
+
+    

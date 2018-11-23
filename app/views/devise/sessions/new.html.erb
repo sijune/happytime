@@ -1,0 +1,42 @@
+<style>
+a:hover{color:#CF3653;}
+.jumbotron{border: 1px solid rgb(217, 217, 217);}
+</style>
+
+<div class="container">
+  <div class="jumbotron" style="padding:0px; margin-top: 120px; width:500px; margin-left: auto; margin-right: auto; background-color: white; border-radius: 15px; box-shadow: 0 6px 12px rgba(0,0,0,.1);">
+    <header class="text-center" style="background-color:#CF3653;  border-radius: 14px 14px 0 0; color: white;">
+      <div style="padding:20px;"><br>
+        <a class="navbar-brand" href="/post/index">
+          <img src="/assets/로고 최종.png"  height="60" class="d-inline-block align-top" alt="logo">
+        </a>
+    <h2>로그인</h2>
+     </div>
+    </header>
+    <div style="padding:50px;" class="text-center">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="field " ><i class="fa fa-paper-plane"></i>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "             이메일",size:25%>
+      </div>
+    
+      <div class="field"><i class="fa fa-lock"></i>
+        <%= f.password_field :password, autocomplete: "current-password", placeholder: "            비밀번호",size:25 %>
+      </div>
+    
+      <% if devise_mapping.rememberable? -%>
+        <div class="field">
+          <%= f.check_box :remember_me %>
+          <%= f.label "기억하시겠습니까?" %>
+        </div>
+      <% end %>
+    
+      <div class="actions">
+        <%= f.submit "로그인", :class => "btn-danger btn"%>
+      </div>
+    <% end %>
+    
+      <%= render "devise/shared/links" %>
+      </div>
+  </div>
+</div>
+

@@ -1,0 +1,72 @@
+<table>
+                  <thead>
+                    <tr>
+                      <th>Title2</th>
+                      <th>Content</th>
+                      <th style="visibility:hidden;">Lat</th>
+                      <th style="visibility:hidden;">Lng</th>
+                      <th>Address</th>
+                      <th colspan="3"></th>
+                    </tr>
+                  </thead>
+                 <% if current_user.nil? %>
+                  
+                   <% @posts.each do |post| %>
+                      
+                      <tr data-toggle="modal" data-target="#exampleModal">
+                        <% unless post.image.nil? %>
+                            <td><%= image_tag post.thumb %></td>
+                        <% end %>
+                            <td><%= post.title %></td>
+                            <td><%= post.content %></td>
+                              <td><%= post.end_date.split(" ")[0] %>년 
+                                <%= post.end_date.split(" ")[1] %>월 
+                                <%= post.end_date.split(" ")[2] %>일 
+                                <%= post.end_date.split(" ")[3] %>시 
+                                <%= post.end_date.split(" ")[4] %>분까지 남은시간:  </td>
+                           <td><span class="time_sale_<%= post.id %>"></span></td>
+                               
+                            <td style="visibility:hidden;display:none;"><%= post.lat %></td>
+                            <td style="visibility:hidden;display:none;"><%= post.lng %></td>
+                            <td><%#= post.address %></td>
+                            <td><%#= link_to 'Map', post_map_path %></td>
+                             <td><%= link_to 'View Post', post_path(post), remote: true %> <td>
+                            <td><%= link_to 'Edit', edit_post_path(post) %></td>
+                            <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                           
+                       </tr>
+                     <% end %>
+                               
+                  
+                  <% else %>
+                  
+                  
+                  
+                  <tbody>
+                    <% @sorted_post.each do |post| %>
+                      <tr data-toggle="modal" data-target="#exampleModal">
+                        <% unless post.image.nil? %>
+                            <td><%= image_tag post.thumb %></td>
+                        <% end %>
+                            <td><%= post.title %></td>
+                            <td><%= post.content %></td>
+                            <td><%= post.end_date.split(" ")[0] %>년 
+                                <%= post.end_date.split(" ")[1] %>월 
+                                <%= post.end_date.split(" ")[2] %>일 
+                                <%= post.end_date.split(" ")[3] %>시 
+                                <%= post.end_date.split(" ")[4] %>분까지 남은시간:  </td>
+                            <td><span class="time_sale_<%= post.id %>"></span></td>
+                               
+                            <td style="visibility:hidden;display:none;"><%= post.lat %></td>
+                            <td style="visibility:hidden;display:none;"><%= post.lng %></td>
+                            <td><%#= post.address %></td>
+                            <td><%#= link_to 'Map', post_map_path %></td>
+                             <td><%= link_to 'View Post', post_path(post), remote: true %> <td>
+                            <td><%= link_to 'Edit', edit_post_path(post) %></td>
+                            <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                           
+                      </tr>
+                    <% end %>
+                   <% end %>
+                  </tbody>
+                </table>

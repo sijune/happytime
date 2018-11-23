@@ -1,0 +1,41 @@
+<!--<div id="post-modal" class="modal fade" role="dialog">-->
+<!--  <div class="modal-dialog modal-lg">-->
+<!--    <div class="modal-content">-->
+<!--      <div class="modal-header">-->
+<!--        <button type="button" class="close" data-dismiss="modal">&times;</button>-->
+<!--      </div>-->
+
+<!--      <div>-->
+<!--         헬로우 -->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+
+
+
+<!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">-->
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+         
+        <h4 class="modal-title" id="myModalLabel"><%#= post.title %></h4>
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+      </div>
+       
+      <div class="modal-body">
+        <p id= "modal22">   ㅎㅇ    </p>
+         <tr>
+            <td>1<%#= post.title %><%#=@post1.title %></td>
+            <td>2<%#= post.content %><%#= @post1.content%></td>
+            <td>3<%#= post.lat %></td>
+            <td>4<%#= post.lng %></td>
+         </tr>
+         <%= submit_tag 'Cancel', :type => :reset, :class => "btn btn-danger", "data-dismiss" => "modal", "aria-hidden" => "true" %>
+         <%# end %>
+      </div>
+    </div>
+  </div>
+<!--</div>-->

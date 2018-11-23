@@ -1,0 +1,346 @@
+<!--<#%= current_user.email%>-->
+ <style>
+.item-icon{width:25px;}
+ 
+.customoverlay {position:relative;bottom:85px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;}
+.customoverlay:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}
+.customoverlay .title {display:block;text-align:center;background:#fff;padding:10px 15px;font-size:14px;font-weight:bold;}
+.customoverlay:after {content:'';position:absolute;margin-left:-12px;left:50%;bottom:-12px;width:22px;height:12px;background:url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
+</style>
+
+<%= render "nav" %>
+<div class="jumbotron" style="padding:20px; margin-top: 50px; width:1300px; margin-left: auto; margin-right: auto; background-color: white; border-radius: 15px; box-shadow: 0 0 12px rgba(0,0,0,.2);">
+
+        <%= alert %>
+        <%#= notice %>
+        <h2 style="text-align: center;font-weight: bold;">
+        할인 정보</h2>
+    
+    <hr>
+    
+    <form action="/post" method="POST" enctype="multipart/form-data">
+    <div class="row">
+        
+     <div class="col-7" >
+           
+        
+           
+            <!--<div class="form-group">-->
+            <!--    <label for="exampleFormControlInput1">할인시간</label>-->
+            <!--    <input name="input_time" type="text" class="form-control" id="exampleFormControlInput1" placeholder="시간을 입력하세요">-->
+            <!--</div>-->
+           <div class="form-group">
+            <label for="exampleFormControlSelect1" style="display:block;font-weight: bold;">할인 기간</label>
+             <select class="form-control col-md-3" id="exampleFormControlSelect1" name="year" style="display:inline;">
+              <option id="year_2018" selected >2018</option>
+              <option>2019</option>
+              <option>2020</option>
+            </select>
+            년
+            
+            <select class="form-control col-md-2" id="exampleFormControlSelect1" name="month" style="display:inline;">
+                <% for i in (1..12) %>
+                    
+                    <option id="m<%= i%>"><%=i%></option>
+                    
+                <% end %>
+            </select>
+            월
+            <select class="form-control col-md-2" id="exampleFormControlSelect1" name="day"  style="display:inline;">
+                <% for i in (1..31) %>
+                    <option><%=i%></option>
+                <% end %>
+            </select>
+            일<br><br>
+            <select class="form-control col-md-2" id="exampleFormControlSelect1" name="start_hour" style="display:inline;">
+                <% for i in (1..24) %>
+                    <option><%=i%></option>
+                <% end %>
+            </select>
+            시
+            <select class="form-control col-md-2" id="exampleFormControlSelect1" name="start_minute" style="display:inline;">
+                <% for i in (0..11) %>
+                    <option><%=i*5%></option>
+                <% end %>
+            </select>
+            분부터
+
+            <select class="form-control col-md-2" id="exampleFormControlSelect1" name="end_hour" style="display:inline;">
+                <% for i in (1..24) %>
+                    <option><%=i%></option>
+                <% end %>
+            </select>
+            시
+            <select class="form-control col-md-2" id="exampleFormControlSelect1" name="end_minute" style="display:inline;">
+                <% for i in (0..11) %>
+                    <option><%=i*5%></option>
+                <% end %>
+            </select>
+            분까지 
+           </div>
+           
+           
+           
+        <div class="row" style="visibility:hidden;"> 
+         <div class="form-group col-md-1">
+            <!--<label for="exampleFormControlInput1">x축</label>-->
+            <textarea id="lat" readonly="readonly" rows="1" name="input_lat"><%= current_user.lat %></textarea>
+         </div>
+          
+          <div class="form-group col-md-1">
+            <!--<label for="exampleFormControlInput1">x축</label>-->
+            <textarea id="lat" readonly="readonly" rows="1" name="input_username"><%= current_user.username %></textarea>
+         </div>
+          
+          
+         <div class="form-group col-md-1" >
+            <!--<label for="exampleFormControlInput1">y축</label>-->
+            <textarea id="lng" readonly="readonly" rows="1" name="input_lng"><%= current_user.lng %></textarea>
+         </div>
+         
+         
+         <div class="form-group col-md-1" >
+            <!--<label for="exampleFormControlInput1">카테고리</label>-->
+            <textarea id="input_category" readonly="readonly" rows="1" name="input_category"><%=current_user.category%></textarea>
+         </div>
+         
+          <div class="form-group col-md-1" >
+            <!--<label for="exampleFormControlInput1">주소</label>-->
+            <textarea id="lng" readonly="readonly" rows="1" name="input_address"><%= current_user.address %></textarea>
+         </div>
+       </div> 
+           
+            <div class="form-group">
+                <label for="exampleFormControlInput1" style="font-weight: bold;">할인 품목</label>
+                <input name="input_title" type="text" class="form-control" id="exampleFormControlInput1" placeholder="할인 품목을 입력하세요">
+            </div>
+            
+            <div class="form-group">
+                <label for="exampleFormControlInput1" style="font-weight: bold;">할인 가격</label>
+                
+                <input name="input_price" type="text" class="form-control" id="exampleFormControlInput1" placeholder="할인 가격을 입력하세요(원)">
+            </div>
+          <!--<div class="form-group">-->
+          <!--  <label for="exampleFormControlSelect1" style="display:block;">할인 시간</label>-->
+          <!--   <select class="form-control col-md-3" id="exampleFormControlSelect1" name="sale_hour" style="display:inline;">-->
+          <!--    <#%for s in(0..23)%>-->
+          <!--    <option ><#%=s%></option>-->
+          <!--    <#% end %>-->
+          <!--  </select>-->
+          <!--  시-->
+          <!--  <select class="form-control col-md-2" id="exampleFormControlSelect1" name="sale_minutes" style="display:inline;">-->
+          <!--      <#% for i in (0..59) %>-->
+          <!--          <option><#%=i%></option>-->
+          <!--      <#% end %>-->
+          <!--  </select>-->
+          <!--  분부터-->
+          <!--  <br><br>-->
+          <!--  <select class="form-control col-md-2" id="exampleFormControlSelect1" name="sale_hour_2" style="display:inline;">-->
+          <!--      <#% for i in (0..23) %>-->
+          <!--          <option><#%=i%></option>-->
+          <!--      <#% end %>-->
+          <!--  </select>-->
+          <!--  시-->
+          <!--   <select class="form-control col-md-2" id="exampleFormControlSelect1" name="sale_minutes_2" style="display:inline;">-->
+          <!--      <#% for i in (0..59) %>-->
+          <!--          <option><#%=i%></option>-->
+          <!--      <#% end %>-->
+          <!--  </select>-->
+          <!--  분까지-->
+            
+          <!-- </div>-->
+          
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1" style="font-weight: bold;">할인 내용</label>
+                <textarea name="input_content" class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="관련 내용을 입력하세요"></textarea>
+            </div>
+            <!--업로드 파일-->
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupFileAddon01">대표이미지 업로드</span>
+              </div>
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" name="image" accept="image/*">
+                <label class="custom-file-label" for="inputGroupFile01"></label>
+              </div>
+            </div>
+           
+      
+    </div>
+    
+    
+     <div class="col-5" >
+       <!-- <h4 style="font-weight: bold; ">회원 정보</h4>
+        <#% if user_signed_in? %>
+            <div><#%= current_user.username %>
+                아이디 : <#%= current_user.email %><br/>
+                No. <#%= current_user.id %><br/>
+                가게유형:   <#% if current_user.category.to_i == 1 %>
+                                카페<img src="/assets/커피 마커.png" class="item-icon">
+                            <#% elsif current_user.category.to_i == 2 %>
+                                술집
+                            <#% elsif current_user.category.to_i == 3 %>
+                                식당
+                            <#% else %>
+                                마트
+                            <#% end %>
+            </div>
+        <#% else %>
+            로그인 되어있지 않음.
+        <#% end %> -->   
+        <!--<button onclick="setCenter()">우리가게 찾기</button> -->
+        <div id="map" style="width:100%;height:100%"></div>
+
+    </div>
+     </div>
+     <br>
+      <div style="text-align: center;">
+       <button type="submit" class="btn btn-danger">등록</button>
+      </div>  
+      
+    
+    </form>
+</div>    
+             
+         <script language=javascript>
+                
+                // var x = "대구 남구"
+                // function myFunction(){
+                //     x = document.getElementById("addressA");
+                // }
+                
+                var container = document.getElementById('map');
+                
+              
+            
+        		var options = {
+        // 			<#% if @post.lat == nil %>
+                        center: new daum.maps.LatLng(<%= current_user.lat %>, <%= current_user.lng %>), // 최초 글 작성 시 지도의 중심좌표
+                    // <#% else %>
+                    //     center: new daum.maps.LatLng(<#%= @post.lat %>, <#%= @post.lng %>), // 수정 시 보여지는 위치
+                    // <#% end %>
+        			level: 3,
+        	
+        		};
+        
+        		var map = new daum.maps.Map(container, options);
+        		
+        	
+    		   var imageSrc = '/assets/할인 중 마커.png', // 마커이미지의 주소입니다    
+                    imageSize = new daum.maps.Size(54, 65), // 마커이미지의 크기입니다
+                    imageOption = {offset: new daum.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                
+                // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+                var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption),
+                    markerPosition = new daum.maps.LatLng(<%= current_user.lat %>, <%= current_user.lng %>); // 마커가 표시될 위치입니다
+                
+                // 마커를 생성합니다
+                var marker = new daum.maps.Marker({
+                  position: markerPosition,
+                  image: markerImage // 마커이미지 설정 
+                });
+                
+                // 마커가 지도 위에 표시되도록 설정합니다
+                marker.setMap(map);  
+                
+                // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+                var content = '<div class="customoverlay">' +
+                    '    <span class="title">우리가게</span>' +
+                    '</div>';
+                
+                // 커스텀 오버레이가 표시될 위치입니다 
+                var position = new daum.maps.LatLng(<%= current_user.lat %>, <%= current_user.lng %>);  
+                
+                // 커스텀 오버레이를 생성합니다
+                var customOverlay = new daum.maps.CustomOverlay({
+                    map: map,
+                    position: position,
+                    content: content,
+                    yAnchor: 1 
+                });
+                
+                
+                
+                
+        		
+        		
+        		
+        		
+        		
+        		  // //----------주소로 지도 찾기-------------
+            //      // 주소-좌표 변환 객체를 생성합니다
+            //     var geocoder = new daum.maps.services.Geocoder();
+                
+                
+            //     // 주소로 좌표를 검색합니다
+            //     geocoder.addressSearch(x, function(result, status) {
+                
+            //         // 정상적으로 검색이 완료됐으면 
+            //          if (status === daum.maps.services.Status.OK) {
+                
+            //             var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+                
+            //             // 결과값으로 받은 위치를 마커로 표시합니다
+            //             var marker = new daum.maps.Marker({
+            //                 map: map,
+            //                 position: coords
+            //             });
+                
+            //             // 인포윈도우로 장소에 대한 설명을 표시합니다
+            //             var infowindow = new daum.maps.InfoWindow({
+            //                 content: '<div style="width:150px;text-align:center;padding:6px 0;">우리가게</div>'
+            //             });
+            //             infowindow.open(map, marker);
+                
+            //             // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+            //             map.setCenter(coords);
+            //         } 
+            //     });    
+                
+            </script>
+    <!--
+    <script>
+		
+		//----------지도에 있는 마커 위도 경도 받아오기-------------
+		// 지도를 클릭한 위치에 표출할 마커입니다
+        var marker = new daum.maps.Marker({ 
+            // 지도 중심좌표에 마커를 생성합니다 
+            position: map.getCenter() 
+        }); 
+        
+        // 지도에 마커를 표시합니다
+        marker.setMap(map);
+        
+        function setCenter() {            
+            // 이동할 위도 경도 위치를 생성합니다 
+            var moveLatLon = new daum.maps.LatLng(35.803427, 128.543336);
+            
+            // 지도 중심을 이동 시킵니다
+            map.setCenter(moveLatLon);
+        }
+         
+        // 지도에 클릭 이벤트를 등록합니다
+        // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
+        daum.maps.event.addListener(map, 'click', function(mouseEvent) {        
+        
+        // 클릭한 위도, 경도 정보를 가져옵니다 
+        var latlng = mouseEvent.latLng; 
+        
+        // 마커 위치를 클릭한 위치로 옮깁니다
+        marker.setPosition(latlng);
+        
+        // X축 좌표값을 얻어냄 
+        var map_x = document.getElementById('lat'); 
+        map_x.innerHTML = latlng.getLat();
+        
+        // Y축 좌표값을 얻어냄
+        var map_y = document.getElementById('lng'); 
+        map_y.innerHTML = latlng.getLng();
+        
+     
+        
+    });
+	</script>   
+	-->
+    <!--<#%= render 'form' %>-->
+    
